@@ -16,11 +16,12 @@ from NLPipeline import *
 # Define your arguments
 preprocess_functions = ['transform_to_lowercase', 'remove_special_characters', 'remove_stopwords']
 vectorizer = 'word2vec'
+column = 'review_text'
 
 # Create the pipeline
 pipeline = NLP_helper(preprocessing_funcs=preprocess_functions, 
                       vectorizer=vectorizer, 
-                      column='review_text')
+                      column=column)
 
 pipeline = pipeline.fit(df)
 ```
@@ -52,13 +53,13 @@ where, for the **preprocess_data**:
 * **data**: <pandas.DataFrame> Your DataFrame.
 * **preprocess_funcs**: <list> list with all the functions you want to use.
 * **column**: <str> Name of the column with the texts that must be preprocessed.
-* **verbose**: <int> If the number is greater than 0, it will print extra info about the processing.
+* **verbose**: <int, default=0> If the number is greater than 0, it will print extra info about the processing.
 * **\*\*kwargs**: Additional hyperparameters.
 
 and for the **vectorization**:
 
 * **data**: <pandas.DataFrame> Your preprocessed DataFrame;
-* **vectorizer**: <str> Name of the vectorization technique you want to use. The valid options are: 'tf-idf', 'bow', or 'word2vec'.
+* **vectorizer**: <str, default='tf-idf'> Name of the vectorization technique you want to use. The valid options are: 'tf-idf', 'bow', or 'word2vec'.
 
 The functions that can be added to the "preprocess\_funcs" hyperparameter, as well as the additional hyperparameters that can be added, will be explained below.
 
@@ -77,13 +78,13 @@ Used to remove all special characters (accents and symbols) from the text.
 Used to remove all stopwords from the text.
 Additional hyperparameters can be used, namely:
 
-* **stopwords**: <list> If you already have a list of stopwords, simply add the list here.
+* **stopwords**: <list, default=None> If you already have a list of stopwords, simply add the list here.
     * Example: stopwords = ['e', 'ou', 'que', 'qual']
-* **language**: <str> If there is no list in the "stopwords" hyperparameter, the list will be obtained by the NLTK library through the assigned language.
+* **language**: <str, default='english'> If there is no list in the "stopwords" hyperparameter, the list will be obtained by the NLTK library through the assigned language.
     * Example: language = 'portuguese' 
-* **list_del_stopwords** <list> Add words you want to remove from the original stopword list.
+* **list_del_stopwords** <list, default=None> Add words you want to remove from the original stopword list.
     * Example: list_del_stopwords = ['e', 'ou']
-* **list_add_stopwords**: <list> Add words you want to include in the original stopword list. 
+* **list_add_stopwords**: <list, default=None> Add words you want to include in the original stopword list. 
     * Example: list_add_stopwords = ['ao', 'sem'] 
 
 ### remove_specific_phrases
@@ -91,7 +92,7 @@ Additional hyperparameters can be used, namely:
 Removes specific phrases (with 2 or more n-grams) from the text.
 Additional hyperparameters can be used, namely:
 
-* **phrases**: <list> List with all the phrases you want to remove.
+* **phrases**: <list, default=None> List with all the phrases you want to remove.
     * Example: phrases = ['bom dia', 'boa tarde', 'boa noite']
 
 ### perform_lemmatization
@@ -99,7 +100,7 @@ Additional hyperparameters can be used, namely:
 Perform lemmatization using spaCy.
 Additional hyperparameters can be used, namely:
 
-* **language**: <str> Add the language you want to use for lemmatization.
+* **language**: <str, default='english'> Add the language you want to use for lemmatization.
     * Example: language = 'portuguese'
 
 ### perform_stemming
@@ -107,5 +108,5 @@ Additional hyperparameters can be used, namely:
 Perform stemming using NLTK SnowballStemmer.
 Additional hyperparameters can be used, namely:
 
-* **language**: <str> Add the language you want to use for stemming.
+* **language**: <str, default='english'> Add the language you want to use for stemming.
     * Example: language = 'portuguese'
