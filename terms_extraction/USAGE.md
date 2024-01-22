@@ -1,4 +1,4 @@
-# Meta-AutoNLP
+# Meta-AutoNLP Prototype
 
 **Using the _Terms extraction_**
 
